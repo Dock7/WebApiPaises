@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
+using System.Text.Json.Serialization;
 using WebApiPaises.Models;
 
 namespace WebApiPaises
@@ -12,9 +13,12 @@ namespace WebApiPaises
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(jsonOptions =>
+                jsonOptions.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase("PaisDB"));
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -35,9 +39,23 @@ namespace WebApiPaises
                 if (!context.Paises.Any())
                 {
                     context.Paises.AddRange(
-                        new Pais { Id = 1, Nombre = "Argentina" },
-                        new Pais { Id = 2, Nombre = "Brasil" },
-                        new Pais { Id = 3, Nombre = "Colombia" }
+                        new Pais
+                        {
+                            Nombre = "Argentina",
+                            Provincias = new() {
+                                new Provincia { Nombre = "Buenos Aires" },
+                                new Provincia { Nombre = "Córdoba" },
+                                new Provincia { Nombre = "Santa Fe" }
+                            }
+                        },
+                        new Pais {
+                            Nombre = "Brasil",
+                            Provincias = new() {
+                                new Provincia { Nombre = "São Paulo" },
+                                new Provincia { Nombre = "Rio de Janeiro" }
+                            }
+                        },
+                        new Pais { Nombre = "Colombia" }
                     );
                     context.SaveChanges();
                 }

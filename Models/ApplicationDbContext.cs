@@ -10,5 +10,6 @@ namespace WebApiPaises.Models
         }
 
         public DbSet<Pais> Paises { get; set; }
+        public DbSet<Provincia> Provincias { get; set; }
     }
 }
