@@ -30,5 +30,18 @@ namespace WebApiPaises.Controllers
             }
             return pais;
         }
+
+        [HttpPost]
+        public ActionResult<Pais> Post([FromBody] Pais pais)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Paises.Add(pais);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = pais.Id }, pais);
+        }
     }
 }
