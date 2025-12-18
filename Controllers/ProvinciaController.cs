@@ -6,7 +6,7 @@ namespace WebApiPaises.Controllers
 {
     [Route("api/Pais/{PaisId:int}/[controller]")]
     [ApiController]
-    public class ProvinciaController : Controller
+    public class ProvinciaController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
