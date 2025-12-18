@@ -25,6 +25,7 @@ namespace WebApiPaises.Controllers
         public ActionResult<Pais> GetById(int id)
         {
             var pais = _context.Paises.Include(x => x.Provincias).FirstOrDefault(x => x.Id == id);
+
             if (pais == null)
             {
                 return NotFound();
@@ -42,6 +43,7 @@ namespace WebApiPaises.Controllers
 
             _context.Paises.Add(pais);
             _context.SaveChanges();
+
             return CreatedAtAction(nameof(GetById), new { id = pais.Id }, pais);
         }
         
@@ -52,17 +54,21 @@ namespace WebApiPaises.Controllers
             {
                 return BadRequest();
             }
-            if (!ModelState.IsValid)
+            else if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             var existingPais = _context.Paises.FirstOrDefault(x => x.Id == id);
+
             if (existingPais == null)
             {
                 return NotFound();
             }
+
             existingPais.Nombre = pais.Nombre;
             _context.SaveChanges();
+
             return Ok();
         }
 
@@ -70,12 +76,15 @@ namespace WebApiPaises.Controllers
         public ActionResult Delete(int id)
         {
             var pais = _context.Paises.FirstOrDefault(x => x.Id == id);
+
             if (pais == null)
             {
                 return NotFound();
             }
+
             _context.Paises.Remove(pais);
             _context.SaveChanges();
+
             return Ok(pais);
         }
     }

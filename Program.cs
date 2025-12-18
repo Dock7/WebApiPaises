@@ -42,18 +42,19 @@ namespace WebApiPaises
                         new Pais
                         {
                             Nombre = "Argentina",
-                            Provincias = new() {
+                            Provincias = [
                                 new Provincia { Nombre = "Buenos Aires" },
                                 new Provincia { Nombre = "Córdoba" },
                                 new Provincia { Nombre = "Santa Fe" }
-                            }
+                            ]
                         },
-                        new Pais {
+                        new Pais
+                        {
                             Nombre = "Brasil",
-                            Provincias = new() {
+                            Provincias = [
                                 new Provincia { Nombre = "São Paulo" },
                                 new Provincia { Nombre = "Rio de Janeiro" }
-                            }
+                            ]
                         },
                         new Pais { Nombre = "Colombia" }
                     );

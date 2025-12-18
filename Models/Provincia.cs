@@ -10,6 +10,6 @@ namespace WebApiPaises.Models
         [ForeignKey("Pais")]
         public int PaisId { get; set; }
         [JsonIgnore]
-        public Pais Pais { get; set; }
+        public Pais? Pais { get; set; }
     }
 }
